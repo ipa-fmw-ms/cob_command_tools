@@ -33,6 +33,7 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/ros/lib)
 rosbuild_add_executable(${PROJECT_NAME} ros/src/${PROJECT_NAME}.cpp)
 rosbuild_add_executable(${PROJECT_NAME}_keyboard ros/src/${PROJECT_NAME}_keyboard.cpp)
 rosbuild_add_executable(keyboard_publisher ros/src/keyboard_publisher.cpp)
+rosbuild_add_executable(cob4_teleop ros/src/cob4_teleop.cpp)
 
 # rostest
 rosbuild_add_roslaunch_check(ros/launch)
