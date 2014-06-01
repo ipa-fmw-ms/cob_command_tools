@@ -10,10 +10,10 @@
     <publisher name="head_controller command" msg="geometry_msgs::Twist"/>
     <publisher name="sensorring_controller command" msg="brics_actuator::JointVelocities"/>
     <publisher name="torso_controller command" msg="geometry_msgs::Twist"/>
-    <subscriber name="joy" msg="sensor_msgs::Joy"/>
-    <parameter name="button_deadman" value="11"/>
-    <parameter name="base_max_linear" value="2.0" type="double"/>
-    <parameter name="base_max_angular" value="6" type="double"/>
+    <subscriber name="joy" queueSize="2" msg="sensor_msgs::Joy"/>
+    <parameter name="button_deadman" value="7"/>
+    <parameter name="base_max_linear" value="0.5" type="double"/>
+    <parameter name="base_max_angular" value="1.5" type="double"/>
     <parameter name="torso_max_angular" value="0.2" type="double"/>
     <parameter name="head_max_angular" value="0.3" type="double"/>
     <parameter name="sensor_ring_max_angular" value="0.1" type="double"/>
@@ -43,24 +43,24 @@
     <parameter name="arm_joint_34" value="14"/>
     <parameter name="arm_joint_56" value="13"/>
     <parameter name="arm_joint_7_gripper" value="12"/>
-    <parameter name="axis_runfactor" value="9"/>
-    <parameter name="button_safety_override" value="9"/>
-    <parameter name="button_init_recover" value="3"/>
-    <parameter name="button_mode_switch" value="0"/>
+    <parameter name="axis_runfactor" value="14"/>
+    <parameter name="button_safety_override" value="14"/>
+    <parameter name="button_init_recover" value="9"/>
+    <parameter name="button_mode_switch" value="8"/>
     <parameter name="torso_roll" value="0"/>
     <parameter name="torso_pitch" value="1"/>
     <parameter name="torso_yaw_left" value="15"/>
     <parameter name="torso_yaw_right" value="13"/>
-    <parameter name="sensorring_yaw_left" value="4"/>
-    <parameter name="sensorring_yaw_right" value="6"/>
+    <parameter name="sensorring_yaw_left" value="14"/>
+    <parameter name="sensorring_yaw_right" value="14"/>
     <parameter name="head_roll" value="2"/>
     <parameter name="head_pitch" value="3"/>
-    <parameter name="head_yaw_left" value="7"/>
-    <parameter name="head_yaw_right" value="5"/>
+    <parameter name="head_yaw_left" value="14"/>
+    <parameter name="head_yaw_right" value="514"/>
     <parameter name="head_home" value="4"/>
-    <parameter name="arm_left_home" value="7"/>
-    <parameter name="arm_right_home" value="5"/>
-    <parameter name="torso_home" value="6"/>
+    <parameter name="arm_left_home" value="3"/>
+    <parameter name="arm_right_home" value="1"/>
+    <parameter name="torso_home" value="0"/>
     <parameter name="sensorring_home" value="12"/>
     <parameter name="gripper_left_home" value="15"/>
     <parameter name="gripper_right_home" value="13"/>

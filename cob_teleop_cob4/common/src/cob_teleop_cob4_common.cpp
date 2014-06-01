@@ -328,7 +328,7 @@ public:
       }
   }
 
-  else if(!stop_once)
+  else if(!stop_once && mode==6) 
   {
 	stop_once=true;
     sss.function_name="stop";
@@ -338,7 +338,7 @@ public:
 	  sss.component_name=static_cast<std::string>(config.components[j]).c_str();
 	  ROS_INFO("Stoping %s",sss.component_name.c_str());	  
 	  client->sendGoal(sss);
-	  client->waitForResult(ros::Duration(5.0));
+	  client->waitForResult(ros::Duration(0.1));
 	  if (client->getState() != actionlib::SimpleClientGoalState::SUCCEEDED)
 		ROS_WARN("Could not Stop component: %s. Error: %s",sss.component_name.c_str(), client->getState().toString().c_str());
 		
