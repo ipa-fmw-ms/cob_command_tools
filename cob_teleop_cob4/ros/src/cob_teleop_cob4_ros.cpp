@@ -72,25 +72,25 @@ class cob_teleop_cob4_ros
         np_.param("gripper_max_velocity", component_config_.gripper_max_velocity, (double)0.1);
         np_.param("base_x", component_config_.base_x, (int)1);
         np_.param("base_y", component_config_.base_y, (int)0);
-        np_.param("base_yaw", component_config_.base_yaw, (int)2);
+        np_.param("base_yaw", component_config_.base_yaw, (int)3);
         np_.param("arm_x", component_config_.arm_x, (int)0);
         np_.param("arm_y", component_config_.arm_y, (int)1);
-        np_.param("arm_yaw", component_config_.arm_yaw, (int)2);
-        np_.param("arm_pitch_up", component_config_.arm_pitch_up, (int)4);
-        np_.param("arm_pitch_down", component_config_.arm_pitch_down, (int)6);
-        np_.param("arm_roll_right_and_ellbow", component_config_.arm_roll_right_and_ellbow, (int)5);
-        np_.param("arm_roll_left_and_ellbow", component_config_.arm_roll_left_and_ellbow, (int)7);
-        np_.param("arm_z_up", component_config_.arm_z_up, (int)12);
-        np_.param("arm_z_down", component_config_.arm_z_down, (int)14);
+        np_.param("arm_yaw", component_config_.arm_yaw, (int)3);
+        np_.param("arm_pitch_up", component_config_.arm_pitch_up, (int)0);
+        np_.param("arm_pitch_down", component_config_.arm_pitch_down, (int)2);
+        np_.param("arm_roll_right_and_ellbow", component_config_.arm_roll_right_and_ellbow, (int)1);
+        np_.param("arm_roll_left_and_ellbow", component_config_.arm_roll_left_and_ellbow, (int)3);
+        np_.param("arm_z_up", component_config_.arm_z_up, (int)6);
+        np_.param("arm_z_down", component_config_.arm_z_down, (int)4);
         np_.param("gripper_open", component_config_.gripper_open, (int)15);
         np_.param("gripper_close", component_config_.gripper_close, (int)13);
-        np_.param("arm_joint_up", component_config_.arm_joint_up, (int)4);
-        np_.param("arm_joint_down", component_config_.arm_joint_down, (int)6);
-        np_.param("arm_joint_left", component_config_.arm_joint_left, (int)7);
-        np_.param("arm_joint_right", component_config_.arm_joint_right, (int)5);
-        np_.param("arm_joint_12", component_config_.arm_joint_12, (int)15);
-        np_.param("arm_joint_34", component_config_.arm_joint_34, (int)14);
-        np_.param("arm_joint_56", component_config_.arm_joint_56, (int)13);
+        np_.param("arm_joint_up", component_config_.arm_joint_up, (int)0);
+        np_.param("arm_joint_down", component_config_.arm_joint_down, (int)2);
+        np_.param("arm_joint_left", component_config_.arm_joint_left, (int)3);
+        np_.param("arm_joint_right", component_config_.arm_joint_right, (int)1);
+        np_.param("arm_joint_12", component_config_.arm_joint_12, (int)6);
+        np_.param("arm_joint_34", component_config_.arm_joint_34, (int)5);
+        np_.param("arm_joint_56", component_config_.arm_joint_56, (int)11);
         np_.param("arm_joint_7_gripper", component_config_.arm_joint_7_gripper, (int)12);
         np_.param("axis_runfactor", component_config_.axis_runfactor, (int)14);
         np_.param("button_safety_override", component_config_.button_safety_override, (int)14);
@@ -98,22 +98,22 @@ class cob_teleop_cob4_ros
         np_.param("button_mode_switch", component_config_.button_mode_switch, (int)8);
         np_.param("torso_roll", component_config_.torso_roll, (int)0);
         np_.param("torso_pitch", component_config_.torso_pitch, (int)1);
-        np_.param("torso_yaw_left", component_config_.torso_yaw_left, (int)15);
-        np_.param("torso_yaw_right", component_config_.torso_yaw_right, (int)13);
+        np_.param("torso_yaw_left", component_config_.torso_yaw_left, (int)7);
+        np_.param("torso_yaw_right", component_config_.torso_yaw_right, (int)5);
         np_.param("sensorring_yaw_left", component_config_.sensorring_yaw_left, (int)14);
         np_.param("sensorring_yaw_right", component_config_.sensorring_yaw_right, (int)14);
         np_.param("head_roll", component_config_.head_roll, (int)2);
         np_.param("head_pitch", component_config_.head_pitch, (int)3);
-        np_.param("head_yaw_left", component_config_.head_yaw_left, (int)14);
-        np_.param("head_yaw_right", component_config_.head_yaw_right, (int)514);
-        np_.param("head_home", component_config_.head_home, (int)4);
+        np_.param("head_yaw_left", component_config_.head_yaw_left, (int)3);
+        np_.param("head_yaw_right", component_config_.head_yaw_right, (int)1);
+        np_.param("head_home", component_config_.head_home, (int)0);
         np_.param("arm_left_home", component_config_.arm_left_home, (int)3);
         np_.param("arm_right_home", component_config_.arm_right_home, (int)1);
-        np_.param("torso_home", component_config_.torso_home, (int)0);
-        np_.param("sensorring_home", component_config_.sensorring_home, (int)12);
-        np_.param("gripper_left_home", component_config_.gripper_left_home, (int)15);
-        np_.param("gripper_right_home", component_config_.gripper_right_home, (int)13);
-        np_.param("base_home", component_config_.base_home, (int)14);
+        np_.param("torso_home", component_config_.torso_home, (int)2);
+        np_.param("sensorring_home", component_config_.sensorring_home, (int)11);
+        np_.param("gripper_left_home", component_config_.gripper_left_home, (int)11);
+        np_.param("gripper_right_home", component_config_.gripper_right_home, (int)11);
+        np_.param("base_home", component_config_.base_home, (int)11);
         if(np_.hasParam("arm_uri"))
             np_.getParam("arm_uri", component_config_.arm_uri);
         else
@@ -122,6 +122,8 @@ class cob_teleop_cob4_ros
             np_.getParam("components", component_config_.components);
         else
             ROS_ERROR("Parameter components not set");
+        np_.param("home_time", component_config_.home_time, (double)5.0);
+        np_.param("stop_time", component_config_.stop_time, (double)0.8);
         }
 
     void topicCallback_joy(const sensor_msgs::Joy::ConstPtr& msg)
@@ -185,6 +187,8 @@ class cob_teleop_cob4_ros
         component_config_.gripper_left_home = config.gripper_left_home;
         component_config_.gripper_right_home = config.gripper_right_home;
         component_config_.base_home = config.base_home;
+        component_config_.home_time = config.home_time;
+        component_config_.stop_time = config.stop_time;
     }
 
     void configure()

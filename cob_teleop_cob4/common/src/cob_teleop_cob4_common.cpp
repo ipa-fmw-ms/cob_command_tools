@@ -76,6 +76,8 @@ public:
     int base_home;
     XmlRpc::XmlRpcValue arm_uri;
     XmlRpc::XmlRpcValue components;
+    double home_time;
+    double stop_time;
 };
 
 class cob_teleop_cob4_data
@@ -154,7 +156,7 @@ public:
       for (i=1; i<7; i++)
       {
       left.velocities.at(i)=jvalue;
-      //ROS_ASSERT(config.arm_uri.getType() == XmlRpc::XmlRpcValue::TypeStruct);
+      ROS_INFO("type is: %s", static_cast<std::string>(config.arm_uri["left",1]).c_str());
       //left.velocities[i].joint_uri=static_cast<std::string>(config.arm_uri[i]).c_str();
       //ROS_INFO(static_cast<std::string>(config.components[i]).c_str() );
       right.velocities.at(i)=jvalue;
@@ -246,8 +248,8 @@ public:
       data.out_arm_cart_right.linear.y=(joy.axes[config.arm_y])*config.arm_cartesian_max_linear*run;
       data.out_arm_cart_right.angular.z=(joy.axes[config.arm_yaw])*config.arm_cartesian_max_angular*run;
       data.out_arm_cart_right.linear.z=(joy.buttons[config.arm_z_up]-joy.buttons[config.arm_z_down])*run*config.arm_cartesian_max_linear;
-      data.out_arm_cart_right.angular.x=(joy.buttons[config.arm_roll_left_and_ellbow]-joy.buttons[config.arm_roll_right_and_ellbow])*run*config.arm_cartesian_max_angular;
-      data.out_arm_cart_right.angular.y=(joy.buttons[config.arm_pitch_up]-joy.buttons[config.arm_pitch_down])*run*config.arm_cartesian_max_angular;
+      data.out_arm_cart_right.angular.x=(joy.buttons[config.arm_roll_left_and_ellbow]-joy.buttons[config.arm_roll_right_and_ellbow])*config.arm_cartesian_max_angular*run;
+      data.out_arm_cart_right.angular.y=(joy.buttons[config.arm_pitch_up]-joy.buttons[config.arm_pitch_down])*config.arm_cartesian_max_angular*run;
       data.out_arm_cart_right_active=1;
       break;
       
@@ -286,7 +288,7 @@ public:
       break;
       
       case 5 : //automoves script      
-      if (joy.buttons[4]){sss.component_name="head";}
+      if (joy.buttons[config.head_home]){sss.component_name="head";}
       else if (joy.buttons[config.arm_left_home]){sss.component_name="arm_left";}
       else if (joy.buttons[config.arm_right_home]){sss.component_name="arm_right";}
       else if (joy.buttons[config.torso_home]){sss.component_name="torso";}      
@@ -302,6 +304,9 @@ public:
         sss.function_name="move";
         sss.parameter_name="home";
         client->sendGoal(sss);
+        client->waitForResult(ros::Duration(config.home_time));//Todo: store all in threads, remove before merge
+	    if (client->getState() != actionlib::SimpleClientGoalState::SUCCEEDED)
+		  ROS_WARN("Could not Home component: %s. Error: %s",sss.component_name.c_str(), client->getState().toString().c_str());
       }
       break;
      
@@ -328,7 +333,7 @@ public:
       }
   }
 
-  else if(!stop_once && mode==6) 
+  else if(!stop_once && mode==5) 
   {
 	stop_once=true;
     sss.function_name="stop";
@@ -338,8 +343,8 @@ public:
 	  sss.component_name=static_cast<std::string>(config.components[j]).c_str();
 	  ROS_INFO("Stoping %s",sss.component_name.c_str());	  
 	  client->sendGoal(sss);
-	  client->waitForResult(ros::Duration(0.1));
-	  if (client->getState() != actionlib::SimpleClientGoalState::SUCCEEDED)
+	  client->waitForResult(ros::Duration(config.stop_time));//Todo: store all in threads, remove before merge
+	  if (client->getState() != actionlib::SimpleClientGoalState::SUCCEEDED) 
 		ROS_WARN("Could not Stop component: %s. Error: %s",sss.component_name.c_str(), client->getState().toString().c_str());
 		
     }	  
