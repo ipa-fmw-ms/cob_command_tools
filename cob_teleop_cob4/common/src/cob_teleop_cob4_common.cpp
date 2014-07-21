@@ -15,10 +15,12 @@
 
 /* protected region user include files on begin */
 #include <actionlib/client/simple_action_client.h>
+#include <actionlib/client/action_client.h>
 #include <cob_script_server/ScriptAction.h>
 #include <string>
 #include <vector>
 #include <cob_srvs/Trigger.h>
+#include <control_msgs/FollowJointTrajectoryAction.h>
 /* protected region user include files end */
 
 class cob_teleop_cob4_config
@@ -124,7 +126,9 @@ class cob_teleop_cob4_impl
 {
     /* protected region user member variables on begin */
     typedef actionlib::SimpleActionClient<cob_script_server::ScriptAction> Client;
+    typedef actionlib::SimpleActionClient<control_msgs::FollowJointTrajectoryAction> Clients;
     Client * client;
+    Clients * clients[10];
     
     bool once;
     bool once_stop;
@@ -162,6 +166,15 @@ public:
       ROS_INFO("Connecting to script_server");
       client->waitForServer();
       ROS_INFO("Connected");
+
+      int i;
+      //Client* clients[10];
+      for (i=0; i<10; i++)
+      {
+    	  //clients[i] = new Clients("script_server", true);
+      	  //clients[i]->waitForServer();
+      	  ROS_INFO("Connected to %i",i);
+      }
         /* protected region user constructor end */
     }
 
@@ -360,6 +373,7 @@ public:
         sss.function_name="move";
         sss.parameter_name="home";
         client->sendGoal(sss); //sss gives feedback but has no effect on robot
+        //clients[1]->sendGoal(trajectoryCall(sss.component_name.c_str(), "home"));
       }
       if (!once && recover)//init recover all components
       {
@@ -410,7 +424,10 @@ public:
     int j;
     for (j=0; j<(config.components.size()); j++)
     {	//stop all components
-      serviceCall(static_cast<std::string>(config.components[j]).c_str(),"stop");
+      //serviceCall(static_cast<std::string>(config.components[j]).c_str(),"stop");
+    	sss.component_name=static_cast<std::string>(config.components[j]).c_str();
+    	//clients[j]->sendGoal(sss);
+    	ROS_INFO("stoping %s",static_cast<std::string>(config.components[j]).c_str());
     }
   }
  
@@ -426,6 +443,7 @@ public:
     ROS_INFO("triggering service: %s",ss.str().c_str());
     ros::service::call(((ss.str()).c_str()),trigger);
     }
+
     void initRecover(const std::string component)
     {
     std::stringstream ss;

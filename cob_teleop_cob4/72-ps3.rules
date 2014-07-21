@@ -1,1 +1,2 @@
 KERNEL=="js?", ATTRS{name}=="Sony Playstation SixAxis/DS3", SYMLINK+="input/jsPS3"
+KERNEL=="js?", ATTRS{name}=="Sony Playstation SixAxis/DS3", SYMLINK-="input/jsPS3", ACTION=="remove"
