@@ -359,6 +359,14 @@
       <element xmi:type="ros:Publisher" href="cob4_teleop.ros_package#//@node.0/@publisher.10"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_appJAwH8EeS_964J-XGZKA"/>
     </children>
+    <children xmi:type="notation:Node" xmi:id="_VKrzoBi-EeSW44hMB9oBGA" type="3006">
+      <children xmi:type="notation:DecorationNode" xmi:id="_VKtBwBi-EeSW44hMB9oBGA" type="5006"/>
+      <styles xmi:type="notation:DescriptionStyle" xmi:id="_VKsasBi-EeSW44hMB9oBGA"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_VKsasRi-EeSW44hMB9oBGA" fontName="Ubuntu"/>
+      <styles xmi:type="notation:LineStyle" xmi:id="_VKsashi-EeSW44hMB9oBGA"/>
+      <element xmi:type="ros:ActionClient" href="cob4_teleop.ros_package#//@node.0/@actionclient.1"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_VKsasxi-EeSW44hMB9oBGA"/>
+    </children>
     <element xmi:type="ros:Node" href="cob4_teleop.ros_package#//@node.0"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_LgmvwbW9EeOeLd2S4hsWIw" x="165" y="33" height="550"/>
   </children>

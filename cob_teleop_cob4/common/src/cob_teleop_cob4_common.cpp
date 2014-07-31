@@ -21,6 +21,7 @@
 #include <vector>
 #include <cob_srvs/Trigger.h>
 #include <control_msgs/FollowJointTrajectoryAction.h>
+#include <trajectory_msgs/JointTrajectory.h>
 /* protected region user include files end */
 
 class cob_teleop_cob4_config
@@ -128,7 +129,7 @@ class cob_teleop_cob4_impl
     typedef actionlib::SimpleActionClient<cob_script_server::ScriptAction> Client;
     typedef actionlib::SimpleActionClient<control_msgs::FollowJointTrajectoryAction> Clients;
     Client * client;
-    Clients * clients[10];
+    Clients * ac;
     
     bool once;
     bool once_stop;
@@ -163,18 +164,12 @@ public:
     {
         /* protected region user constructor on begin */
       client = new Client("script_server", true);
+      ac = new Clients("trajectory",true);
       ROS_INFO("Connecting to script_server");
       client->waitForServer();
-      ROS_INFO("Connected");
-
-      int i;
-      //Client* clients[10];
-      for (i=0; i<10; i++)
-      {
-    	  //clients[i] = new Clients("script_server", true);
-      	  //clients[i]->waitForServer();
-      	  ROS_INFO("Connected to %i",i);
-      }
+      ROS_INFO("Connected1");
+      ac->waitForServer();
+      ROS_INFO("Connected2");
         /* protected region user constructor end */
     }
 
@@ -436,6 +431,11 @@ public:
 
 
     /* protected region user additional functions on begin */
+    trajectory_msgs::JointTrajectory trajectoryCall(const std::string component, const std::string command)//same as initRecover
+    {
+    ros::service::call(component.c_str(),"home");
+    }
+
     void serviceCall(const std::string component, const std::string command)//same as initRecover
     {
     std::stringstream ss;

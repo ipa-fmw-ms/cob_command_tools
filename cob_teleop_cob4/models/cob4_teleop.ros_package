@@ -78,6 +78,7 @@
     <parameter name="gripper_2" value="2"/>
     <parameter name="gripper_max_angular" type="double" value="0.2"/>
     <actionclient name="init" ActionType="cob_script_server::Script"/>
+    <actionclient name="trajectory" ActionType="control_msgs::FollowJointTrajectory"/>
   </node>
   <depend>sensor_msgs</depend>
   <depend>geometry_msgs</depend>
@@ -86,4 +87,7 @@
   <depend>trajectory_msgs</depend>
   <depend>cob_script_server</depend>
   <depend>cob_srvs</depend>
+  <depend>actionlib</depend>
+  <depend>actionlib_msgs</depend>
+  <depend>control_msgs</depend>
 </ros:Package>
