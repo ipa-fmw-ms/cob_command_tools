@@ -23,6 +23,7 @@
 #include <control_msgs/FollowJointTrajectoryAction.h>
 #include <trajectory_msgs/JointTrajectory.h>
 #include <cob_script_server/ComposeTrajectory.h>
+#include <algorithm>
 /* protected region user include files end */
 
 class cob_teleop_cob4_config
@@ -376,11 +377,17 @@ public:
       {
         once=true;
         ROS_INFO("Homing %s",sss.component_name.c_str());
-        sss.function_name="move";
-        sss.parameter_name="home";
+        //sss.function_name="move";
+        //sss.parameter_name="home";
+        if (!strcmp(sss.component_name.c_str(),"base"))
+        	{
+        	ROS_INFO("BASE TODO");
+        	}
+        else {
         trajectory = trajectoryCall(sss.component_name.c_str(),"home");
         acg.goal.trajectory = trajectory;
-        //std::find(static_cast<std::string>(config.components.begin()).c_str(),static_cast<std::string>(config.components.end()).c_str(), sss.component_name.c_str());
+        //int y;
+        //y = std::find(config.components.begin(), config.components.end(), "arm_left");
         int l;
         for (l=0; l<(config.components.size()); l++)
         {
@@ -388,6 +395,7 @@ public:
         	{
         		ac[l]->sendGoal(acg.goal);
         	}
+        }
         }
 
       }
