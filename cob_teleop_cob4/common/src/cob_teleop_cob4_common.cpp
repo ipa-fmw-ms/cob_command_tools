@@ -211,7 +211,8 @@ public:
     	ss << config.components[k] << "_controller/follow_joint_trajectory";
         ac[k] = new Clients(ss.str().c_str(),true);
         ROS_INFO("connecting to %s",ss.str().c_str());
-        ac[k]->waitForServer(ros::Duration(2.0));//Todo feedback
+        ac[k]->waitForServer(ros::Duration(2.0));
+        ROS_INFO(" %s to connect to %s ",  ac[k]->isServerConnected() ? "succeeded" : "has failed",ss.str().c_str());
       }
       //set initial mode after startup
       mode=0;
@@ -376,28 +377,7 @@ public:
       if (!once && !recover)
       {
         once=true;
-        ROS_INFO("Homing %s",sss.component_name.c_str());
-        //sss.function_name="move";
-        //sss.parameter_name="home";
-        if (!strcmp(sss.component_name.c_str(),"base"))
-        	{
-        	ROS_INFO("BASE TODO");
-        	}
-        else {
-        trajectory = trajectoryCall(sss.component_name.c_str(),"home");
-        acg.goal.trajectory = trajectory;
-        //int y;
-        //y = std::find(config.components.begin(), config.components.end(), "arm_left");
-        int l;
-        for (l=0; l<(config.components.size()); l++)
-        {
-        	if (!strcmp(sss.component_name.c_str(),static_cast<std::string>(config.components[l]).c_str()))
-        	{
-        		ac[l]->sendGoal(acg.goal);
-        	}
-        }
-        }
-
+        moveComponent(sss.component_name.c_str(),"home",config);
       }
       if (!once && recover)//init recover all components
       {
@@ -450,7 +430,7 @@ public:
     {	//stop all components
     	//sss.component_name=static_cast<std::string>(config.components[j]).c_str();
     	//clients[j]->sendGoal(sss);
-    	ROS_INFO("stoping %s",static_cast<std::string>(config.components[j]).c_str());
+    	ROS_INFO("stopping %s",static_cast<std::string>(config.components[j]).c_str());
     	ac[j]->cancelAllGoals();
     }
   }
@@ -490,6 +470,28 @@ public:
           joyfb.array[i].intensity=static_cast<int>(leds[i]);
         }
         return joyfb;
+    }
+
+    void moveComponent(const std::string component, const std::string destination,cob_teleop_cob4_config config){
+    ROS_INFO("Homing %s",component.c_str());
+    //sss.function_name="move";
+    //sss.parameter_name="home";
+    if (!strcmp(component.c_str(),"base"))
+    	{
+    	ROS_INFO("BASE TODO");
+    	}
+    else {
+    trajectory = trajectoryCall(component,destination);
+    acg.goal.trajectory = trajectory;
+    int l;
+    for (l=0; l<(config.components.size()); l++)
+    {
+    	if (!strcmp(component.c_str(),static_cast<std::string>(config.components[l]).c_str()))
+    	{
+    		ac[l]->sendGoal(acg.goal);
+    	}
+    }
+    }
     }
     /* protected region user additional functions end */
 };
